@@ -1,20 +1,36 @@
 <html>
     <head>
         <title>Pacman</title>
-       <style>
-            body{
-            margin: 0;
-            background-color: black; 
-            padding: 10px 20px;
-            }
-        </style>
+   
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <p style="color: white; font-family: sans-serif; font-size: 2em; 
            margin-bottom: 10px;">
           <span>Score:   </span><span id="scoreEl">0</span>
         </p>
+         <div class="main">
+                <div class="screen">
+           <div class="start-screen active" id="start-screen">
+                        <div class="btn" id="btn-level">Easy</div>
+                         <div class="btn" id="btn-continue">Continue</div>
+                          <div class="btn btn-blue" id="btn-play">New game</div>
+                    </div>
+        
         <canvas></canvas>
+        
+                                   <!-- Result screen -->
+                    <div class="result-screen" id="result-screen">
+                       <div class="congrate">Compled</div>
+                         <div class="info">Time</div>
+                         <div id="result-time"></div>
+                          <div class="btn" id="btn-new-game-2">New game</div>
+                    </div>
+                      <!-- End Result screen -->
+                      
+                </div>
+            </div>   
+         <!-- End main -->
         <script src="index.js"></script>
 
     </body>
