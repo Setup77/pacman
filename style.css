@@ -124,8 +124,6 @@ nav {
 }
 
 .screen{
-    position: relative;
-    overflow: hidden;
     height: 100%;
     min-width: 400px;
 }
@@ -143,6 +141,8 @@ nav {
     justify-content: center;
     height: 100%;
 }
+
+
 
 .start-screen.active{
     transform: translateX(0);

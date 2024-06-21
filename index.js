@@ -2,11 +2,28 @@ const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 const scoreEl = document.querySelector('#scoreEl');
 
-canvas.width = innerWidth;
+const start_screen = document.querySelector('#start-screen');
+const game_screen = document.querySelector('#game-screen');
+const pause_screen = document.querySelector('#pause-screen');
+const result_screen = document.querySelector('#result-screen');
+const player_name = document.querySelector('#player-name');
+const game_level = document.querySelector('#game-level');
+const game_time = document.querySelector('#game-time');
+const result_time = document.querySelector('#result-time');
+
+canvas.width = 600;
 canvas.height = innerHeight;
 
 const backgroundMusic = document.createElement('audio');
 backgroundMusic.src = 'creepin.mp3'; 
+const getGameInfo = () => JSON.parse(localStorage.getItem('game')); 
+ const showTime = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 8);
+
+//---système de chrono
+let timer = null;
+let pause = false;
+let seconds = 0;
+
 
 class Boundary{
     static width = 40;
@@ -98,7 +115,7 @@ class Pellet {
     draw() {
         c.beginPath();
         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-        c.fillStyle = 'white';
+        c.fillStyle = 'black';
         c.fill();
         c.closePath;
     }   
@@ -712,7 +729,7 @@ else if(player.velocity.y > 0) player.rotation = Math.PI / 2;
 else if(player.velocity.y  < 0) player.rotation = Math.PI * 1.5;
 } //---end of animate
 
-animate();
+
 
 addEventListener('keydown', ({ key }) => {
   switch (key)  {
@@ -755,4 +772,36 @@ addEventListener('keyup', ({ key }) => {
 });
 
 //2h:11
+
+  const startGame = () =>{
+        start_screen.classList.remove('active');
+        game_screen.classList.add('active');
+ $("#game-screen").show(); 
+       // player_name.innerHTML = name_input.value.trim();
+        //setPlayerName(name_input.value.trim()); //---on sauvegarde le nom du joueur
+   
+   //game_level.innerHTML = CONSTANT.LEVEL_NAME[level_index];
+   
+   seconds = 0;
+   showTime(seconds); 
+   
+  
+   
+   timer = setInterval(() => { 
+       if(!pause){
+           seconds = seconds + 1;
+           game_time.innerHTML = showTime(seconds);
+           
+       }
+   }, 1000); //-- le code à l'interieur s'executera pendant une seconde
+}
+
+const game = getGameInfo();
+document.querySelector('#btn-continue').style.display = game ? 'grid' : 'none';
+document.querySelector('#game-screen').style.display = game ? 'grid' : 'none';
+document.querySelector('#btn-play').addEventListener('click',() => {
+ startGame();
+animate();
+
+});
 
